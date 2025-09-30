@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Simples - Funções</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+        input { padding: 10px; margin: 10px; font-size: 16px; }
+        .resultado { margin: 20px 0; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste Simples das Funções</h1>
+    
+    <div>
+        <button onclick="testarAbrirModal()">Testar Abrir Modal</button>
+        <button onclick="testarFiltrar()">Testar Filtrar</button>
+        <button onclick="verificarFuncoes()">Verificar Funções</button>
+    </div>
+    
+    <div>
+        <input type="text" id="filtroNome" placeholder="Filtrar por nome..." onkeyup="filtrarClientes()">
+        <select id="filtroStatus" onchange="filtrarClientes()">
+            <option value="">Todos</option>
+            <option value="true">Ativos</option>
+            <option value="false">Inativos</option>
+        </select>
+    </div>
+    
+    <div id="modalAdicionar" class="modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3>Modal de Teste</h3>
+        <p>Este é um modal de teste!</p>
+        <button onclick="fecharModal('modalAdicionar')">Fechar</button>
+    </div>
+    
+    <div class="resultado" id="resultado">
+        <h3>Resultado dos Testes:</h3>
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        // Função para logar resultados
+        function logar(mensagem) {
+            const logs = document.getElementById('logs');
+            logs.innerHTML += '<div>' + new Date().toLocaleTimeString() + ' - ' + mensagem + '</div>';
+        }
+        
+        // Testar abrir modal
+        function testarAbrirModal() {
+            logar('🎯 Testando abrirModal...');
+            try {
+                if (typeof abrirModal === 'function') {
+                    abrirModal('modalAdicionar');
+                    logar('✅ abrirModal executado com sucesso');
+                } else {
+                    logar('❌ abrirModal não está disponível');
+                }
+            } catch (error) {
+                logar('❌ Erro ao executar abrirModal: ' + error.message);
+            }
+        }
+        
+        // Testar filtrar
+        function testarFiltrar() {
+            logar('🎯 Testando filtrarClientes...');
+            try {
+                if (typeof filtrarClientes === 'function') {
+                    filtrarClientes();
+                    logar('✅ filtrarClientes executado com sucesso');
+                } else {
+                    logar('❌ filtrarClientes não está disponível');
+                }
+            } catch (error) {
+                logar('❌ Erro ao executar filtrarClientes: ' + error.message);
+            }
+        }
+        
+        // Verificar funções
+        function verificarFuncoes() {
+            logar('🔍 Verificando funções...');
+            logar('abrirModal: ' + (typeof abrirModal === 'function' ? '✅ Disponível' : '❌ Não disponível'));
+            logar('fecharModal: ' + (typeof fecharModal === 'function' ? '✅ Disponível' : '❌ Não disponível'));
+            logar('filtrarClientes: ' + (typeof filtrarClientes === 'function' ? '✅ Disponível' : '❌ Não disponível'));
+        }
+        
+        // Executar verificação ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            logar('🚀 Página carregada');
+            setTimeout(verificarFuncoes, 100);
+        });
+    </script>
+    
+    <!-- Carregar o script principal -->
+    <script src="script.js"></script>
+</body>
+</html>

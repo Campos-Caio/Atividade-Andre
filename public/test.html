@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste JavaScript</title>
+</head>
+<body>
+    <h1>Teste de JavaScript</h1>
+    <button onclick="testarFuncoes()">Testar Funções</button>
+    <div id="resultado"></div>
+
+    <script>
+        function testarFuncoes() {
+            const resultado = document.getElementById('resultado');
+            
+            try {
+                // Testar se as funções existem
+                if (typeof abrirModal === 'function') {
+                    resultado.innerHTML += '✅ abrirModal existe<br>';
+                } else {
+                    resultado.innerHTML += '❌ abrirModal não existe<br>';
+                }
+                
+                if (typeof filtrarClientes === 'function') {
+                    resultado.innerHTML += '✅ filtrarClientes existe<br>';
+                } else {
+                    resultado.innerHTML += '❌ filtrarClientes não existe<br>';
+                }
+                
+                if (typeof carregarClientes === 'function') {
+                    resultado.innerHTML += '✅ carregarClientes existe<br>';
+                } else {
+                    resultado.innerHTML += '❌ carregarClientes não existe<br>';
+                }
+                
+                // Testar elementos do DOM
+                const filtroNome = document.getElementById('filtroNome');
+                if (filtroNome) {
+                    resultado.innerHTML += '✅ Elemento filtroNome existe<br>';
+                } else {
+                    resultado.innerHTML += '❌ Elemento filtroNome não existe<br>';
+                }
+                
+                const modalAdicionar = document.getElementById('modalAdicionar');
+                if (modalAdicionar) {
+                    resultado.innerHTML += '✅ Elemento modalAdicionar existe<br>';
+                } else {
+                    resultado.innerHTML += '❌ Elemento modalAdicionar não existe<br>';
+                }
+                
+            } catch (error) {
+                resultado.innerHTML += '❌ Erro: ' + error.message + '<br>';
+            }
+        }
+        
+        // Carregar o script principal
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        script.onload = function() {
+            document.getElementById('resultado').innerHTML += '✅ Script carregado com sucesso<br>';
+        };
+        script.onerror = function() {
+            document.getElementById('resultado').innerHTML += '❌ Erro ao carregar script<br>';
+        };
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>
