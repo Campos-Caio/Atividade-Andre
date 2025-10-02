@@ -18,6 +18,4 @@ jobs:
       
       - name: Run application tests (integration)
         run: |
-          docker-compose up -d db
-          docker run --rm --network host -e NODE_ENV=test cadastro-clientes-test npm test
-          docker-compose down
+          docker run --rm -e NODE_ENV=test cadastro-clientes-test npm test
