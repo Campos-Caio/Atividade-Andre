@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Serviço principal da aplicação
+  app:
+    build: .
+    container_name: cadastro-clientes-app
+    ports:
+      - "3000:3000"
+    volumes:
+      # Montar o código fonte para desenvolvimento (hot reload)
+      - ./src:/app/src
+      - ./public:/app/public
+      # Persistir o banco de dados
+      - ./database:/app/database
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    depends_on:
+      - db
+
+  # Serviço para executar apenas os testes
+  test:
+    build: .
+    container_name: cadastro-clientes-test
+    volumes:
+      - ./src:/app/src
+      - ./database:/app/database
+    environment:
+      - NODE_ENV=test
+    command: npm test
+    depends_on:
+      - db
+
+  # Banco de dados SQLite (opcional, já que você usa SQLite local)
+  db:
+    image: alpine:latest
+    container_name: cadastro-clientes-db
+    volumes:
+      - ./database:/data
+    command: sh -c "mkdir -p /data && touch /data/clientes.db"

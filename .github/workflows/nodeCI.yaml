@@ -9,10 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: npm test
+      
+      - name: Build Docker image
+        run: docker build -t cadastro-clientes-test .
+      
+      - name: Run tests with Docker
+        run: docker run --rm cadastro-clientes-test npm test
+      
+      - name: Run application tests (integration)
+        run: |
+          docker-compose up -d db
+          docker run --rm --network host -e NODE_ENV=test cadastro-clientes-test npm test
+          docker-compose down
