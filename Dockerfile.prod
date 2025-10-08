@@ -1,0 +1,39 @@
+# Use a imagem oficial do Node.js 14
+FROM node:14-alpine
+
+# Definir o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiar package.json e package-lock.json (se existir)
+COPY package*.json ./
+
+# Instalar apenas dependências de produção
+RUN npm ci --only=production
+
+# Copiar o código fonte
+COPY src ./src
+COPY public ./public
+
+# Criar diretório para o banco de dados
+RUN mkdir -p database
+
+# Criar usuário não-root para segurança
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown -R nodejs:nodejs /app
+
+# Mudar para usuário não-root
+USER nodejs
+
+# Expor a porta que a aplicação usa
+EXPOSE 3000
+
+# Definir variável de ambiente para produção
+ENV NODE_ENV=production
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Comando para executar a aplicação
+CMD ["npm", "start"]

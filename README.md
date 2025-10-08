@@ -242,6 +242,49 @@ Os testes cobrem:
 - ✅ Rotas (validação de dados, endpoints)
 - ✅ Integração com banco de dados
 
+## 🐳 Docker
+
+### Executar com Docker
+
+```bash
+# Build da imagem
+docker build -t cadastro-clientes-nodejs .
+
+# Executar o container
+docker run -d \
+  -p 3000:3000 \
+  --name cadastro-clientes \
+  -v $(pwd)/database:/app/database \
+  cadastro-clientes-nodejs
+```
+
+### Executar com Docker Compose
+
+```bash
+# Subir todos os serviços
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Parar os serviços
+docker-compose down
+```
+
+### 🚀 CI/CD com GitHub Actions
+
+Este projeto está configurado para fazer build e push automático para o Docker Hub usando GitHub Actions.
+
+**Imagem no Docker Hub**: `seuusuario/cadastro-clientes-nodejs`
+
+Para configurar o CI/CD, consulte o guia detalhado: [DOCKER_SETUP.md](./DOCKER_SETUP.md)
+
+**Usar imagem do Docker Hub**:
+```bash
+docker pull seuusuario/cadastro-clientes-nodejs:latest
+docker run -d -p 3000:3000 seuusuario/cadastro-clientes-nodejs:latest
+```
+
 ## 🔧 Configuração de Desenvolvimento
 
 ### Variáveis de Ambiente

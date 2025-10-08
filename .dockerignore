@@ -1,49 +1,61 @@
 # Dependências
 node_modules
-npm-debug.log*
+npm-debug.log
+yarn-error.log
 
-# Arquivos de teste e coverage
+# Testes
 coverage
-.nyc_output
+*.test.js
+__tests__
+.jest
+
+# Git
+.git
+.gitignore
+.github
+
+# Docker
+Dockerfile
+Dockerfile.prod
+docker-compose.yml
+.dockerignore
+
+# Documentação
+*.md
+!README.md
+
+# Arquivos de configuração
+.env
+.env.local
+.env.*.local
+.editorconfig
+.eslintrc
+.prettierrc
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database (será criado no container)
+database/*.db
+database/*.db-*
 
 # Logs
 logs
 *.log
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Diretório .git
-.git
-.gitignore
-
-# Arquivos de ambiente
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Arquivos do sistema
-.DS_Store
-Thumbs.db
-
-# Arquivos de IDE
-.vscode
-.idea
-*.swp
-*.swo
-
-# Arquivos temporários
+# Temporários
 tmp
 temp
+.tmp
 
-# README e documentação
-README.md
-*.md
-
-# GitHub Actions
-.github
+# Scripts de desenvolvimento
+test-local.sh
+scripts/seed.js
